@@ -1,0 +1,20 @@
+Vagrant.configure(2) do |config|
+  
+  # CONF HARDWARE
+  config.vm.provider :virtualbox do |vb|
+  	vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "1"]
+  end
+
+  config.vm.network :forwarded_port, guest: 80, host: 8080
+  
+  # CONF BOX METADATA
+  config.vm.define "apache" do |confa|
+    confa.vm.box = "centos/7"
+  	confa.vm.hostname = "apache.example.vag"
+  end
+
+  # PROVISION
+  #config.vm.provision "shell", path: "init.sh"
+  config.vm.provision "shell", inline: "echo Build successfull !"
+
+end
