@@ -14,7 +14,10 @@ Vagrant.configure(2) do |config|
   end
 
   # PROVISION
-  #config.vm.provision "shell", path: "init.sh"
-  config.vm.provision "shell", inline: "echo Build successfull !"
+  config.vm.provision "shell", path: "Web_Server_Init.sh"
+  config.vm.provision "file", source: "index.html", destination: "/var/www/html/www/index.html"
+  config.vm.provision "file", source: "www.conf", destination: "/etc/httpd/conf.d/www.conf"
+  config.vm.provision "shell", inline: "systemct restart httpd.service"
+  config.vm.provision "shell", inline: "echo Provision successfull !"
 
 end
